@@ -1,10 +1,13 @@
 #!/bin/sh
 
+# usage: ./bin/deploy.sh example.com '443 ssl'
+
 set -e
 set -x
 
 project_name=flask_healthcheck
-deployment_server=localhost
+deployment_server=${1:-localhost}
+port=${2:-8000}
 
 deployment_dir=/var/${project_name}
 
@@ -80,7 +83,7 @@ sudo service $project_name start
 # Use nginx to handle outside world communications.
 cat <<EOT | sudo tee /etc/nginx/sites-available/$project_name
 server {
-    listen 8041;
+    listen ${port};
     server_name ${deployment_server};
 
     location / {
@@ -95,4 +98,4 @@ server {
 EOT
 
 sudo ln -fs /etc/nginx/sites-available/$project_name /etc/nginx/sites-enabled/
-sudo service nginx restart
+sudo service nginx reload
