@@ -4,13 +4,8 @@ from flask import request
 from copy import deepcopy
 
 
-def create_basic_header_auth(blp, token_key, authenticate_func):
-
-    api_key_scheme = {
-        "in": "header",
-        "name": token_key,
-        "type": 'apiKey',
-    }
+def token_header_auth(blp, token_key, authenticate_func,
+                      auth_schema_name='TokenAuth'):
 
     def decorator_constructor(propagate_account=False):
         def decorator(method):
@@ -29,9 +24,13 @@ def create_basic_header_auth(blp, token_key, authenticate_func):
                     return method(self)
 
             replacement._apidoc = deepcopy(getattr(replacement, '_apidoc', {}))
-            replacement._apidoc.setdefault('security', []).append({'TokenAuth': []})
+            replacement._apidoc.setdefault('security', []).append(
+                {auth_schema_name: []})
 
             return replacement
         return decorator
 
-    return api_key_scheme, decorator_constructor
+    security_scheme = (auth_schema_name, {"in": "header",
+                                          "name": token_key,
+                                          "type": 'apiKey'})
+    return security_scheme, decorator_constructor
