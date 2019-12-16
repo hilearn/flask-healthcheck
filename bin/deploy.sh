@@ -74,11 +74,10 @@ sudo systemctl daemon-reload
 sudo systemctl enable $project_name.socket
 
 # Create /run/$flask_project_name with correct permissions before starting the socket
-# sudo systemd-tmpfiles --create
+sudo systemd-tmpfiles --create
 
-# Start the socket 
-sudo systemctl start $project_name.socket
-sudo service $project_name start
+# (Re)Start the socket (which will start the service)
+sudo systemctl restart $project_name.socket
 
 # Use nginx to handle outside world communications.
 cat <<EOT | sudo tee /etc/nginx/sites-available/$project_name
