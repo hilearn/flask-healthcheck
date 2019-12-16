@@ -20,3 +20,6 @@
   - 'werkzeug>=0.15' - Serve OpenAPI specifications using Swagger UI & ReDoc
 
 `gunicorn` - used to deploy our application with systemd
+
+`pyinstrument` - python profiler that also works with flask
+  - Add `?profile` query parameter to the url, and instead of the output, you'll get an HTML with the profiler information.
