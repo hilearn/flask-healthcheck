@@ -1,0 +1,9 @@
+{
+  "linters": {
+    "flake8": {
+      "flags": ["--select", "E,W,N,F"],
+      "include": "(\\.py$)",
+      "type": "flake8"
+    }
+  }
+}

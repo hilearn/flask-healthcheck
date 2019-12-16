@@ -11,7 +11,6 @@ blp = Blueprint('Health check API', __name__,
                 description='API Endpoints for demonstration and health '
                             'checking of services.')
 
-
 auth_scheme, auth_required = token_header_auth(blp, 'AuthToken', auth_token)
 
 
