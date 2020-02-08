@@ -16,7 +16,7 @@ auth_scheme, auth_required = token_header_auth(blp, 'AuthToken', auth_token)
 
 @blp.route('/')
 class HealthCheck(MethodView):
-    @blp.response()
+    @blp.response(description='return status')
     def get(self):
         """
         get request to check that the server is running.
@@ -35,22 +35,18 @@ class Greeting(MethodView):
 
     @blp.arguments(GreetingArgs, location='query', required=True,
                    as_kwargs=True)
-    @blp.response(ReplySchema)
+    @blp.response(ReplySchema,
+                  description='Return greeting message.')
     def get(self, greeting_type=GreetingType.FORMAL):
-        """
-        customized greeting message
-        """
         return Reply(greeting_type=greeting_type,
                      message=self.replies[greeting_type])
 
     @auth_required(propagate_account=True)  # Order matters
     @blp.arguments(GreetingArgs, location='json', required=True,
                    as_kwargs=True, example={'greeting_type': 'formal'})
-    @blp.response(ReplySchema)
+    @blp.response(ReplySchema,
+                  description='Return user customized greeting message.')
     def post(self, account, greeting_type):
-        """
-        user customized greeting
-        """
         return Reply(greeting_type=greeting_type,
                      user=account,
                      message=self.replies[greeting_type])
