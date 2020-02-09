@@ -1,5 +1,6 @@
 PROJECT = flask-healthcheck
-PYTHON_VERSION=3.7
+PYTHON=python3.7
+PYTHON_VERSION=$(shell ${PYTHON} --version 2>&1 | cut -c 8-10)
 venv_name = py${PYTHON_VERSION}-${PROJECT}
 venv = .venv/${venv_name}
 
@@ -10,14 +11,11 @@ _pip = . ${venv}/bin/activate; pip
 default: update_venv
 .PHONY: default
 
-create_venv: ${venv}
-.PHONY: create_venv
-
-${venv}: requirements.txt
+${venv}/bin/pip: requirements.txt
 	python${PYTHON_VERSION} -m venv ${venv}
 	${_pip} install -r requirements.txt --cache .tmp/
 
-update_venv: requirements.txt ${venv}
+update_venv: requirements.txt ${venv}/bin/pip
 	${_pip} install -r requirements.txt --cache .tmp/
 	@rm -f .venv/current
 	@ln -s ${venv_name} .venv/current
