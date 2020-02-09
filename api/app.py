@@ -2,7 +2,7 @@ import os
 from flask import Flask
 from flask import g, make_response, request
 from api.config import get_config
-from werkzeug import ImmutableMultiDict
+from werkzeug.datastructures import ImmutableMultiDict
 from pyinstrument import Profiler
 from .v1 import blp, auth_scheme
 from flask_smorest import Api
