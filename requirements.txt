@@ -2,8 +2,9 @@ flake8==3.7.9
 attrs==19.3.0
 Flask==1.1.1
 flask-smorest==0.18.4
-marshmallow==3.4.0
+marshmallow==3.5.1
 gunicorn==20.0.4
-marshmallow-enum==1.5.1
 git+https://github.com/hilearn/marshmallow-annotations.git
+webargs==5.5.3
+marshenum==0.1.2
 pyinstrument==3.1.0

@@ -6,7 +6,7 @@ from werkzeug.datastructures import ImmutableMultiDict
 from pyinstrument import Profiler
 from .v1 import blp, auth_scheme
 from flask_smorest import Api
-
+from marshenum import EnumField
 
 app = Flask(__name__)
 
@@ -41,7 +41,7 @@ def after_request(response):
 
 
 api = Api(app)
-
+api.register_field(EnumField, 'string', None)
 api.spec.components.security_scheme(*auth_scheme)
 
 api.register_blueprint(blp, url_prefix='/')

@@ -10,7 +10,7 @@
 
 `marshmallow-annotations` - library to automatically convert attrs classes to marshmallow schemas
 
-`marshmallow-enum` - library to automatically convert python enums to marshmallow enums, so they appear nicely in the API
+`marshenum` - library to automatically convert python enums to marshmallow enums, so they appear nicely in the API.
 
 `flask-smorest` is a set of flask extensions, that include
   - 'flask>=1.1.0'
