@@ -4,8 +4,8 @@ from flask.views import MethodView
 from .db import auth_token
 from .auth import token_header_auth
 
-from .schema import GreetingArgs, Reply, GreetingType
-
+from .schema import GreetingArgs
+from store.models import Reply
 
 blp = Blueprint('Health check API', __name__,
                 description='API Endpoints for demonstration and health '
@@ -28,18 +28,14 @@ class HealthCheck(MethodView):
 
 @blp.route('/greet')
 class Greeting(MethodView):
-    replies = {
-        GreetingType.FORMAL: 'Hello',
-        GreetingType.CAUSAL: 'Hey',
-    }
 
     @blp.arguments(GreetingArgs.schema, location='query', required=True,
                    as_kwargs=True)
     @blp.response(Reply.schema,
                   description='Return greeting message.')
     def get(self, greeting_type):
-        return Reply(greeting_type=greeting_type,
-                     message=self.replies[greeting_type])
+        reply = Reply.query.get(greeting_type)
+        return reply
 
     @auth_required(propagate_account=True)  # Order matters
     @blp.arguments(GreetingArgs.schema, location='json', required=True,

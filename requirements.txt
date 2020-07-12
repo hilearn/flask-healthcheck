@@ -6,5 +6,8 @@ marshmallow==3.5.1
 gunicorn==20.0.4
 git+https://github.com/hilearn/marshmallow-annotations.git
 webargs==5.5.3
-marshenum==0.1.2
+marshenum==0.1.5
 pyinstrument==3.1.0
+sqlalchemy==1.3.18
+flask-sqlalchemy==2.4.3
+pytest==5.4.3
