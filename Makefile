@@ -22,3 +22,12 @@ update_venv: requirements.txt ${venv}/bin/pip
 	@echo Success, to activate the development environment, run:
 	@echo "\tsource .venv/current/bin/activate"
 .PHONY: update_venv
+
+
+test:
+	python -m coverage erase
+	python -m pytest --cov=. --cov-report= --durations=10 tests -W 'ignore::DeprecationWarning'
+	@echo "#####################"
+	@echo "##       OK        ##"
+	@echo "#####################"
+.PHONY: test

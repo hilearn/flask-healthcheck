@@ -7,4 +7,3 @@ from store.models import GreetingType
 @attr.s(auto_attribs=True)
 class GreetingArgs:
     greeting_type: GreetingType
-
