@@ -1,6 +1,6 @@
 flake8==3.7.9
 attrs==19.3.0
-Flask==1.1.1
+Flask==2.3.2
 flask-smorest==0.18.4
 marshmallow==3.5.1
 gunicorn==20.0.4
